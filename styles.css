@@ -1,0 +1,26 @@
+.board {
+    width: 700px;
+    height: 700px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 4px solid black;
+}
+
+.cell {
+    height: 66px;
+    width: 66px;
+    border: 2px solid black 
+
+}
+
+.playerYellow {
+    background-color:yellow;
+}
+
+.playerBlue {
+    background-color:blue;
+}
+
+.unusable {
+    background-color: black;
+}
