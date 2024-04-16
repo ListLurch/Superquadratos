@@ -1,4 +1,5 @@
 const cells = document.querySelectorAll(".cell");
+
 let currentPlayer = "playerYellow";
 
 
@@ -57,15 +58,30 @@ const checkCombinations = (stepperIndex) => {
     }
 };
 
-//logic for removing buttons
+//logic for the kill buttons
 const removerYellow = document.querySelector("#removerYellow");
 const removerBlue = document.querySelector("#removerBlue");
-
+let counterYellow = 3;
+let counterBlue = 3;
 removerYellow.addEventListener("click", () => {
     removerYellow.classList.add("removerYellowOn");
+    counterYellow--;
+    if (counterYellow === 0) {
+        removerYellow.textContent = "No kills left!";
+        removerYellow.disabled = true;
+    } else {
+        removerYellow.textContent = `Kill a blue Square! (${counterYellow.toString()})`;
+    }
 });
 removerBlue.addEventListener("click", () => {
     removerBlue.classList.add("removerBlueOn");
+    counterBlue--;
+    if (counterBlue === 0) {
+        removerBlue.textContent = "No kills left!";
+        removerBlue.disabled = true;
+    } else {
+        removerBlue.textContent = `Kill a yellow Square! (${counterBlue.toString()})`;
+    }
 });
 
 // logic for clicking on cells
@@ -82,7 +98,7 @@ cells.forEach((cell) => {
         } else if (!(cell.classList.contains("playerYellow") || cell.classList.contains("playerBlue"))) {
             cell.classList.add(currentPlayer);
         }
-        
+
         if (currentPlayer === "playerYellow") {
             currentPlayer = "playerBlue";
         } else {
