@@ -1,3 +1,7 @@
+/* #mainContent {
+    display: none;
+} */
+
 .board {
     width: 700px;
     height: 700px;
