@@ -1,8 +1,22 @@
-/* #mainContent {
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.mainContent {
     display: none;
-} */
+}
 
 .board {
+    margin-left: auto;
+    margin-right: auto;
     width: 700px;
     height: 700px;
     display: flex;
@@ -13,16 +27,15 @@
 .cell {
     height: 66px;
     width: 66px;
-    border: 2px solid black 
-
+    border: 2px solid black
 }
 
 .playerYellow {
-    background-color:yellow;
+    background-color: yellow;
 }
 
 .playerBlue {
-    background-color:blue;
+    background-color: blue;
 }
 
 .unusable {

@@ -12,24 +12,26 @@
 
         <!-- Modal for choosing the starting player -->
         <div class="modal">
+            <h1>Welcome to Superquadratos!</h1>
             <p>Which color should start in the game?</p>
             <button id="yellowStart">Yellow</button>
             <button id="blueStart">Blue</button>
         </div>
 
             <!-- Main content -->
-        <div>
+        <div class="mainContent">
             <!-- Information about the current standings -->
-            <h1>Welcome to Superquadratos!</h1>
-            <div>
-                <h2>Player Yellow:</h2>
+            <div class="scoreboard">
+                <div>
+                <h2>Player Yellow</h2>
                 <button id="removerYellow">Kill a blue Square! (3)</button>
-                <h2>Score:</h2>
-            </div>
-            <div>
-                <h2>Player Blue:</h2>
+                <h2 id="scoreYellow">Score: 0</h2>
+                </div>
+                <div>
+                <h2>Player Blue</h2>
                 <button id="removerBlue">Kill a yellow Square! (3)</button>
-                <h2>Score:</h2>
+                <h2 id="scoreBlue">Score: 0</h2>
+                </div>
             </div>
 
             <!-- board -->

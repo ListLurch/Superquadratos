@@ -1,17 +1,62 @@
 // logic for the modal for the starting player
-
+const mainContent = document.querySelector(".mainContent");
+const modal = document.querySelector(".modal");
 let currentPlayer;
 const yellowButton = document.querySelector("#yellowStart");
 const blueButton = document.querySelector("#blueStart");
 yellowButton.addEventListener("click", () => {
     currentPlayer = "playerYellow";
+    modal.style.display = "none";
+    mainContent.style.display = "block";
 });
 blueButton.addEventListener("click", () => {
     currentPlayer = "playerBlue";
+    modal.style.display = "none";
+    mainContent.style.display = "block";
 });
 
-
+// cells and score buttons
 const cells = document.querySelectorAll(".cell");
+const scoreYellow = document.querySelector("#scoreYellow");
+const scoreBlue = document.querySelector("#scoreBlue");
+let scoreCounterBlue = 0;
+let scoreCounterYellow = 0;
+
+//logic for the kill buttons
+const removerYellow = document.querySelector("#removerYellow");
+const removerBlue = document.querySelector("#removerBlue");
+let counterYellow = 3;
+let counterBlue = 3;
+removerYellow.addEventListener("click", () => {
+    if (currentPlayer === "playerYellow") {
+        removerYellow.classList.add("removerYellowOn");
+        counterYellow--;
+        if (counterYellow === 0) {
+            removerYellow.textContent = "No kills left!";
+            removerYellow.disabled = true;
+        } else {
+            removerYellow.textContent = `Kill a blue Square! (${counterYellow.toString()})`;
+        }
+    } else {
+        alert("Can't choose this option!");
+    }
+});
+
+removerBlue.addEventListener("click", () => {
+    if (currentPlayer === "playerBlue") {
+        removerBlue.classList.add("removerBlueOn");
+        counterBlue--;
+        if (counterBlue === 0) {
+            removerBlue.textContent = "No kills left!";
+            removerBlue.disabled = true;
+        } else {
+            removerBlue.textContent = `Kill a yellow Square! (${counterBlue.toString()})`;
+        }
+    } else {
+        alert("Can't choose this option!");
+    }
+
+});
 
 // function for checking winning combinations
 const checkCombinations = (stepperIndex) => {
@@ -50,59 +95,54 @@ const checkCombinations = (stepperIndex) => {
             endColIndex = 9;
             break;
     }
+    // winning conditions
     for (let i = startRowIndex; i <= endRowIndex; i++) {
         for (let j = startColIndex; j <= endColIndex; j++) {
             if (cells[i * 10 + j].classList.contains("playerYellow") &&
                 cells[i * 10 + j + stepperIndex].classList.contains("playerYellow") &&
                 cells[i * 10 + j + 2 * stepperIndex].classList.contains("playerYellow") &&
                 cells[i * 10 + j + 3 * stepperIndex].classList.contains("playerYellow")) {
-                alert("Yellow won!");
+                setTimeout(() => {
+                    if (window.confirm("Yellow won! Do you want to play another round?")) {
+                        counterYellow = 3;
+                        counterBlue = 3;
+                        removerYellow.textContent = "Kill a blue Square! (3)";
+                        removerBlue.textContent = "Kill a yellow Square! (3)";
+                        scoreCounterYellow++;
+                        scoreYellow.textContent = `Score : ${scoreCounterYellow}`;
+                        cells.forEach((cell) => {
+                            cell.classList.remove("unusable", "playerBlue", "playerYellow");
+                        });
+                    } else {
+                        alert("Thanks for playing!");
+                    }
+                }, 100);
 
             } else if (cells[i * 10 + j].classList.contains("playerBlue") &&
                 cells[i * 10 + j + stepperIndex].classList.contains("playerBlue") &&
                 cells[i * 10 + j + 2 * stepperIndex].classList.contains("playerBlue") &&
                 cells[i * 10 + j + 3 * stepperIndex].classList.contains("playerBlue")) {
-                alert("Blue won!");
+                setTimeout(() => {
+                    if (window.confirm("Blue won! Do you want to play another round?")) {
+                        counterYellow = 3;
+                        counterBlue = 3;
+                        removerYellow.textContent = "Kill a blue Square! (3)";
+                        removerBlue.textContent = "Kill a yellow Square! (3)";
+                        scoreCounterBlue++;
+                        scoreBlue.textContent = `Score: ${scoreCounterBlue}`;
+                        cells.forEach((cell) => {
+                            cell.classList.remove("unusable", "playerBlue", "playerYellow");
+                        });
+                    } else {
+                        alert("Thanks for playing!");
+                    }
+                }, 100);
             }
         }
     }
 };
 
-//logic for the kill buttons
-const removerYellow = document.querySelector("#removerYellow");
-const removerBlue = document.querySelector("#removerBlue");
-let counterYellow = 3;
-let counterBlue = 3;
-removerYellow.addEventListener("click", () => {
-    if (currentPlayer === "playerYellow") {
-        removerYellow.classList.add("removerYellowOn");
-        counterYellow--;
-        if (counterYellow === 0) {
-            removerYellow.textContent = "No kills left!";
-            removerYellow.disabled = true;
-        } else {
-            removerYellow.textContent = `Kill a blue Square! (${counterYellow.toString()})`;
-        }
-    } else {
-        alert("Can't choose this option!");
-    }
 
-});
-removerBlue.addEventListener("click", () => {
-    if (currentPlayer === "playerBlue") {
-        removerBlue.classList.add("removerBlueOn");
-        counterBlue--;
-        if (counterBlue === 0) {
-            removerBlue.textContent = "No kills left!";
-            removerBlue.disabled = true;
-        } else {
-            removerBlue.textContent = `Kill a yellow Square! (${counterBlue.toString()})`;
-        }
-    } else {
-        alert("Can't choose this option!");
-    }
-
-});
 
 // logic for clicking on cells
 cells.forEach((cell) => {
